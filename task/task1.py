@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 
 
 class UnknownOperationError(Exception):
@@ -6,9 +6,15 @@ class UnknownOperationError(Exception):
 
 
 def calculator():
+    """calculator that allows you to calculate basic arithmetic operations"""
     while True:
         try:
-            arithmetic_operator = input("Enter arithmetic operator +, -, *, /: ")
+            arithmetic_operator = input(
+                "Enter arithmetic operator +, -, *, / (or 'q' to quit): "
+            )
+            if arithmetic_operator.lower() in "q":
+                print("Calculator terminated. Goodbye!")
+                break
             if arithmetic_operator not in "+-*/":
                 raise UnknownOperationError(
                     f"Invalid arithmetic operator - {arithmetic_operator}"
@@ -32,6 +38,8 @@ def calculator():
             print(f"Error! {e}")
         except OverflowError:
             print("Error!  Number overflow.")
+        except InvalidOperation:
+            print("Error! Invalid decimal operation.")
         except Exception as e:
             print(f"Unexpected error: {e}")
 
