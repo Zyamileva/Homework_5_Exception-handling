@@ -1,5 +1,6 @@
 class GameEventException(Exception):
     """Custom exception"""
+
     def __init__(self, event_type: str, details: dict):
         self.event_type = event_type
         self.details = details
